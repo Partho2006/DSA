@@ -11,12 +11,12 @@ class Solution {
         int count = 0;
         int candidate = 0;
         
-        for (int num : nums) {
+        for (int i : nums) {
             if (count == 0) {
-                candidate = num;
+                candidate = i;
             }
             
-            if (num == candidate) {
+            if (i == candidate) {
                 count++;
             } else {
                 count--;
@@ -37,16 +37,16 @@ class Solution {
 
 // 🔹 Step 2: Traverse the Array
 
-// For each element num in the array:
+// For each element i in the array:
 
 // Step 2.1
 
 // If count == 0
-// → Set candidate = num
+// → Set candidate = i
 
 // Step 2.2
 
-// If num == candidate
+// If i == candidate
 // → Increase count by 1
 
 // Else
