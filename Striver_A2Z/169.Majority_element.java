@@ -27,7 +27,7 @@ class Solution {
     }
 }
 
-// ✅ Algorithm: Boyer–Moore Voting (Step Explanation for Writing)
+// Algorithm: Boyer–Moore Voting (Step Explanation for Writing)
 // Goal: Find the element that appears more than ⌊n/2⌋ times.
 
 // 🔹 Step 1: Initialize Variables
