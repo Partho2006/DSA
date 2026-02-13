@@ -34,7 +34,7 @@ class Solution {
 // Space Complexity: O(n)
 
 
-// ## Subarray Sum Equals K 
+// ## Subarray Sum Equals K  --  *prefix sum algo* used her
 
 // Goal:
 // Count how many subarrays have sum equal to `k`.
