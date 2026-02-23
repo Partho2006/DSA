@@ -41,3 +41,162 @@ class Solution {
         return -1;
     }
 }
+
+// Time complexity: O(logn) 
+// Space complexity: O(1) 
+
+
+// This problem is just **binary search + rotation logic**.
+
+// Array was sorted.
+// Then it was rotated at some pivot.
+
+// # 🔥 Core Idea
+
+// In a rotated sorted array:
+
+// 👉 At least ONE half (left or right) is always sorted.
+
+// So each step:
+
+// 1. Find mid.
+// 2. Check which half is sorted.
+// 3. Decide if target lies inside that half.
+// 4. Discard the other half.
+
+// That’s it.
+
+// ---
+
+// # 🧠 Step-by-Step Logic
+
+// ### 1️⃣ Initialize
+
+// ```
+// low = 0
+// high = n - 1
+// ```
+
+// ---
+
+// ### 2️⃣ Binary Search Loop
+
+// ```
+// while (low <= high)
+// ```
+
+// ---
+
+// ### 3️⃣ Find Mid
+
+// ```
+// mid = (low + high) / 2
+// ```
+
+// If:
+
+// ```
+// nums[mid] == target
+// ```
+
+// Return mid.
+
+// ---
+
+// ## 🔍 Case 1: Left Half is Sorted
+
+// If:
+
+// ```
+// nums[low] <= nums[mid]
+// ```
+
+// Left side is sorted.
+
+// Now check:
+
+// If:
+
+// ```
+// nums[low] <= target < nums[mid]
+// ```
+
+// Target lies in left half → move left:
+
+// ```
+// high = mid - 1
+// ```
+
+// Else:
+
+// ```
+// low = mid + 1
+// ```
+
+// ---
+
+// ## 🔍 Case 2: Right Half is Sorted
+
+// Else → right side is sorted.
+
+// Check:
+
+// If:
+
+// ```
+// nums[mid] < target <= nums[high]
+// ```
+
+// Target lies in right half → move right:
+
+// ```
+// low = mid + 1
+// ```
+
+// Else:
+
+// ```
+// high = mid - 1
+// ```
+
+// ---
+
+// # 🔎 Example
+
+// Input:
+
+// ```
+// nums = [4,5,6,7,0,1,2]
+// target = 0
+// ```
+
+// Step 1:
+// mid = 7
+// Left half sorted (4–7)
+// Target not in that range → move right
+
+// Step 2:
+// Now searching `[0,1,2]`
+// mid = 1
+// Left sorted
+// Target in range → move left
+
+// Found at index 4.
+
+// ---
+
+// # ⏱ Complexity
+
+// Time → **O(log n)**
+// Space → **O(1)**
+
+// ---
+
+// # 🎯 Why It Works
+
+// Because rotation only breaks array at ONE pivot.
+
+// So:
+
+// * One side remains fully sorted.
+// * That gives enough information to discard half each time.
