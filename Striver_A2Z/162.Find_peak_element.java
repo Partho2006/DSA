@@ -33,7 +33,6 @@ class Solution {
                 low = mid + 1;
             }
         }
-
         // Return peak index
         return low;
     }
