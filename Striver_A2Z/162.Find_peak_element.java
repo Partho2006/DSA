@@ -45,3 +45,4 @@ class Solution {
 // Otherwise, the peak must lie in the right half (excluding mid), so shift the left bound.
 // Continue until the search space converges to a single element.
 // This final position is the index of a peak element.
+
