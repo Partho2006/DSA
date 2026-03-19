@@ -29,293 +29,108 @@ class Solution {
 // Space complexity: O(n)
 
 
-// Alright. Let’s break this down properly — line by line — so you actually understand what’s happening.
+// You’re given intervals like:
+// [1,3], [2,6], [8,10]
 
-// This is the classic **Merge Intervals** problem.
+// Some overlap, some don’t.
 
-// ---
-
-// ## 🔹 Method Signature
-
-// ```java
-// public int[][] merge(int[][] intervals)
-// ```
-
-// * Input: `intervals` → 2D array
-//   Example: `[[1,3],[2,6],[8,10],[15,18]]`
-// * Output: merged overlapping intervals
-//   Example: `[[1,6],[8,10],[15,18]]`
+// Your job:
+// 👉 **Merge overlapping ones into a single interval**
 
 // ---
 
-// ## 🔹 Step 1: Edge Case
+// ## 🔹 How to think (no jargon)
 
-// ```java
-// if (intervals.length <= 1) return intervals;
-// ```
+// ### 1. Sort first
 
-// If:
-
-// * There are **0 intervals** → nothing to merge.
-// * There is **1 interval** → already merged.
-
-// So we directly return.
-
-// No extra work needed.
-
-// ---
-
-// ## 🔹 Step 2: Sort the Intervals
-
-// ```java
-// Arrays.sort(intervals, Comparator.comparingInt(i -> i[0]));
-// ```
-
-// This sorts intervals based on **starting time**.
-
-// Why?
-
-// Because merging only works correctly if intervals are ordered by start time.
-
-// ### Example before sorting:
-
-// ```
-// [8,10], [1,3], [2,6]
-// ```
-
-// ### After sorting:
+// Put intervals in order of starting time:
 
 // ```
 // [1,3], [2,6], [8,10]
 // ```
 
-// Now overlaps become easy to detect.
-
-// ⚠️ Without sorting, this logic would fail.
+// If you don’t sort → you’ll mess up comparisons.
 
 // ---
 
-// ## 🔹 Step 3: Create Result List
+// ### 2. Start with the first interval
 
-// ```java
-// List<int[]> res = new ArrayList<>();
 // ```
-
-// We cannot directly modify and return the input array easily because:
-
-// * We don’t know final size
-// * Merging reduces number of intervals
-
-// So we store results in a dynamic list first.
+// current = [1,3]
+// ```
 
 // ---
 
-// ## 🔹 Step 4: Start with First Interval
+// ### 3. Compare next interval
 
-// ```java
-// int[] newInterval = intervals[0];
-// res.add(newInterval);
+// Take `[2,6]`
+
+// Check:
+
+// ```
+// Does 2 ≤ 3 ?
 // ```
 
-// * Take the first interval as the current interval to compare.
-// * Add it to result.
+// Yes → overlap
 
-// Think of it as:
+// So merge:
 
-// > "This is my current working interval."
+// ```
+// current = [1,6]
+// ```
 
 // ---
 
-// ## 🔹 Step 5: Traverse All Intervals
+// ### 4. Move to next
 
-// ```java
-// for (int[] i : intervals)
-// ```
+// Take `[8,10]`
 
-// We now check each interval one by one.
-
-// ---
-
-// ## 🔹 Step 6: Check Overlap
-
-// ```java
-// if (i[0] <= newInterval[1])
-// ```
-
-// Condition means:
-
-// Start of current interval ≤ End of previous interval
-
-// That means → they overlap.
-
-// ### Example:
-
-// Previous interval:
+// Check:
 
 // ```
-// [1,3]
+// Does 8 ≤ 6 ?
 // ```
 
-// Current interval:
-
-// ```
-// [2,6]
-// ```
-
-// Since:
-
-// ```
-// 2 <= 3
-// ```
-
-// They overlap.
-
-// ---
-
-// ## 🔹 Step 7: Merge
-
-// ```java
-// newInterval[1] = Math.max(newInterval[1], i[1]);
-// ```
-
-// We update the ending time to the bigger one.
-
-// Example:
-
-// ```
-// [1,3] and [2,6]
-// ```
-
-// New merged interval:
-
-// ```
-// [1,6]
-// ```
-
-// Why?
-
-// Because merged interval should cover both completely.
-
-// ---
-
-// ## 🔹 Step 8: No Overlap Case
-
-// ```java
-// else {
-//     newInterval = i;
-//     res.add(newInterval);
-// }
-// ```
-
-// If they don't overlap:
-
-// Example:
-
-// ```
-// [1,6] and [8,10]
-// ```
-
-// Since:
-
-// ```
-// 8 > 6
-// ```
-
-// No overlap.
+// No → no overlap
 
 // So:
 
-// * Start a new interval
-// * Add it to result
+// * Save `[1,6]`
+// * Start new interval → `[8,10]`
 
 // ---
 
-// ## 🔹 Step 9: Convert List to Array
-
-// ```java
-// return res.toArray(new int[res.size()][]);
-// ```
-
-// Because function must return `int[][]`, not List.
-
-// So we convert the list back to 2D array.
-
-// ---
-
-// # 🔥 Full Dry Run Example
-
-// Input:
+// ## 🔥 Final Answer
 
 // ```
-// [[1,3],[2,6],[8,10],[15,18]]
-// ```
-
-// After sorting:
-
-// ```
-// [[1,3],[2,6],[8,10],[15,18]]
-// ```
-
-// ### Iteration 1:
-
-// Current = [1,3]
-
-// ### Iteration 2:
-
-// [2,6] overlaps with [1,3]
-
-// Merged → [1,6]
-
-// ### Iteration 3:
-
-// [8,10] does NOT overlap with [1,6]
-
-// Add new interval → [8,10]
-
-// ### Iteration 4:
-
-// [15,18] does NOT overlap with [8,10]
-
-// Add new interval → [15,18]
-
-// Final result:
-
-// ```
-// [[1,6],[8,10],[15,18]]
+// [1,6], [8,10]
 // ```
 
 // ---
 
-// # ⏱ Time & Space Complexity
+// ## ⚡ One-line logic
 
-// ### Time Complexity:
-
-// * Sorting → **O(n log n)**
-// * Traversal → **O(n)**
-
-// Overall:
-
-// ```
-// O(n log n)
-// ```
-
-// ### Space Complexity:
-
-// * Result list → O(n)
+// 👉 If next start ≤ current end → merge
+// 👉 Else → store current and start new one
 
 // ---
 
-// # 🎯 Core Logic in One Sentence
+// ## 💡 Real-life analogy
 
-// 1. Sort intervals by start time.
-// 2. Compare each interval with the previous one.
-// 3. Merge if overlapping.
-// 4. Otherwise, add as new interval.
+// Think of time slots:
 
-// ---
+// * Meeting 1: 1–3
+// * Meeting 2: 2–6
 
-// Since you're learning DSA seriously now, understand this clearly:
+// They clash → combine → 1–6
 
-// 👉 Most interval problems = **Sort + Compare with previous**
+// But:
 
-// That pattern repeats in many questions.
+// * Meeting 3: 8–10
+
+// No clash → separate
+
+// ## 🎯 What actually matters (don’t forget this)
+
+// Most interval problems =
+// Sort → Compare → Merge
