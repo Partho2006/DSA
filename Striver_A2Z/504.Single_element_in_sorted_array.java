@@ -9,6 +9,7 @@
 // Input: nums = [1,1,2,3,3,4,4,8,8]
 // Output: 2
 
+
 public class Solution {
      
      // Function to find the single non-duplicate element using binary search
@@ -55,3 +56,7 @@ public class Solution {
         return -1;
     }
 }
+
+
+// Time complexity: O(logn) 
+// Space complexity: O(1)
