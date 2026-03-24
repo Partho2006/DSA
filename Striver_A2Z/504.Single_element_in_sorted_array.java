@@ -10,7 +10,7 @@
 // Output: 2
 
 
-public class Solution {
+class Solution {
      
      // Function to find the single non-duplicate element using binary search
     public int singleNonDuplicate(int[] arr) {
