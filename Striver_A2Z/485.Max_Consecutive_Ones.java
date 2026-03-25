@@ -22,7 +22,6 @@ class Solution {
                 res = count;
             }
         }
-
         return res;        
     }
 }
