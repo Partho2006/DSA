@@ -7,19 +7,18 @@
 // Output: [1,3,12,0,0]
 
 class Solution {
-    public void moveZeroes(int[] nums) {
-        int left = 0;
+public:
+    void moveZeroes(vector<int>& nums) {
+        int i = 0;
 
-        for (int right = 0; right < nums.length; right++) {
-            if (nums[right] != 0) {
-                int temp = nums[right];
-                nums[right] = nums[left];
-                nums[left] = temp;
-                left++;
+        for (int j = 0; j < nums.size(); j++) {
+            if (nums[j] != 0) {
+                swap(nums[j], nums[i]);
+                i++;
             }
         }        
     }
-}
+};
 
 // Complexity:
 // Time: O(n)
